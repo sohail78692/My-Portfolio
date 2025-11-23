@@ -23,7 +23,7 @@ export const OSProvider = ({ children }) => {
     const focusApp = (appId) => {
         setActiveWindowId(appId);
         setZIndexMap((prev) => {
-            const maxZ = Math.max(0, ...Object.values(prev));
+            const maxZ = Math.max(1000, ...Object.values(prev));
             return { ...prev, [appId]: maxZ + 1 };
         });
     };

@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import DiscordStatus from './DiscordStatus';
 
 const Hero = () => {
     const container = {
@@ -23,49 +24,66 @@ const Hero = () => {
                 variants={container}
                 initial="hidden"
                 animate="show"
+                style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'flex-start',
+                    gap: '2rem'
+                }}
             >
-                <motion.h1 variants={item}>
-                    Creative <br /> Developer
-                </motion.h1>
-                <motion.p
+                <div>
+                    <motion.h1 variants={item}>
+                        Creative <br /> Developer
+                    </motion.h1>
+                    <motion.p
+                        variants={item}
+                    >
+                        Building digital experiences that merge art and technology.
+                    </motion.p>
+                    <motion.button
+                        variants={item}
+                        style={{
+                            marginTop: '2rem',
+                            padding: '1rem 2rem',
+                            fontSize: '1rem',
+                            border: '1px solid #fff',
+                            color: '#fff',
+                            borderRadius: '50px',
+                        }}
+                        whileHover={{
+                            scale: 1.05,
+                            backgroundColor: '#fff',
+                            color: '#000',
+                            boxShadow: '0px 0px 8px rgb(255,255,255)',
+                        }}
+                        whileTap={{ scale: 0.95 }}
+                        animate={{
+                            y: [0, -10, 0],
+                        }}
+                        transition={{
+                            y: {
+                                duration: 2,
+                                repeat: Infinity,
+                                ease: "easeInOut",
+                            },
+                            default: { duration: 0.3 }
+                        }}
+                    >
+                        View Work
+                    </motion.button>
+                </div>
+
+                {/* Discord Status */}
+                <motion.div
                     variants={item}
+                    style={{ width: '100%', maxWidth: '350px' }}
                 >
-                    Building digital experiences that merge art and technology.
-                </motion.p>
-                <motion.button
-                    variants={item}
-                    style={{
-                        marginTop: '2rem',
-                        padding: '1rem 2rem',
-                        fontSize: '1rem',
-                        border: '1px solid #fff',
-                        color: '#fff',
-                        borderRadius: '50px',
-                    }}
-                    whileHover={{
-                        scale: 1.05,
-                        backgroundColor: '#fff',
-                        color: '#000',
-                        boxShadow: '0px 0px 8px rgb(255,255,255)',
-                    }}
-                    whileTap={{ scale: 0.95 }}
-                    animate={{
-                        y: [0, -10, 0],
-                    }}
-                    transition={{
-                        y: {
-                            duration: 2,
-                            repeat: Infinity,
-                            ease: "easeInOut",
-                        },
-                        default: { duration: 0.3 }
-                    }}
-                >
-                    View Work
-                </motion.button>
+                    <DiscordStatus />
+                </motion.div>
             </motion.div>
         </section>
     );
 };
 
 export default Hero;
+

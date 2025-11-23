@@ -31,7 +31,7 @@ const Dock = () => {
                 x: '-50%',
                 height: '80px',
                 alignItems: 'flex-end',
-                zIndex: 10000,
+                zIndex: 100,
             }}
         >
             {apps.map((app) => (

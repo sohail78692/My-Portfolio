@@ -4,6 +4,9 @@ import Window from './Window';
 import { useOS } from '../../context/OSContext';
 import { AnimatePresence } from 'framer-motion';
 import { useState, useEffect } from 'react';
+import DiscordStatus from '../DiscordStatus';
+import CalendarWidget from '../CalendarWidget';
+import WorldClockWidget from '../WorldClockWidget';
 
 const Desktop = () => {
     const { windows } = useOS();
@@ -19,7 +22,7 @@ const Desktop = () => {
         return () => observer.disconnect();
     }, []);
 
-    const darkWallpaper = 'https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=2070&auto=format&fit=crop';
+    const darkWallpaper = '/wallpapers/dark-abstract.jpg';
     const lightWallpaper = 'https://images.unsplash.com/photo-1557683316-973673baf926?q=80&w=2070&auto=format&fit=crop';
 
     return (
@@ -35,6 +38,28 @@ const Desktop = () => {
 
             {/* Desktop Area */}
             <div style={{ position: 'relative', width: '100%', height: '100%' }}>
+                {/* Widgets Container */}
+                <div style={{
+                    position: 'absolute',
+                    top: '70px',
+                    right: '15px',
+                    zIndex: 50,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '0.6rem',
+                    width: '400px'
+                }}>
+                    <DiscordStatus />
+                    <div style={{
+                        display: 'grid',
+                        gridTemplateColumns: '1fr 1fr',
+                        gap: '0.8rem'
+                    }}>
+                        <CalendarWidget />
+                        <WorldClockWidget />
+                    </div>
+                </div>
+
                 <AnimatePresence>
                     {windows.map((window) => (
                         <Window key={window.id} window={window} />
@@ -48,3 +73,4 @@ const Desktop = () => {
 };
 
 export default Desktop;
+
