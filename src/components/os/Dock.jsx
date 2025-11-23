@@ -16,26 +16,28 @@ const Dock = () => {
     const { openApp } = useOS();
 
     return (
-        <div className="glass-dark" style={{
-            position: 'fixed',
-            bottom: '1rem',
-            left: '50%',
-            transform: 'translateX(-50%)',
-            display: 'flex',
-            gap: '1rem',
-            padding: '0.5rem 1rem',
-            borderRadius: '20px',
-            alignItems: 'flex-end',
-            height: '60px',
-            zIndex: 9999,
-        }}
+        <motion.div
             onMouseMove={(e) => mouseX.set(e.pageX)}
             onMouseLeave={() => mouseX.set(Infinity)}
+            className="glass"
+            style={{
+                display: 'flex',
+                gap: '1rem',
+                padding: '0.8rem',
+                borderRadius: '20px',
+                position: 'fixed',
+                bottom: '20px',
+                left: '50%',
+                x: '-50%',
+                height: '80px',
+                alignItems: 'flex-end',
+                zIndex: 10000,
+            }}
         >
             {apps.map((app) => (
                 <DockIcon key={app.id} mouseX={mouseX} app={app} onClick={() => openApp(app.id, app.title)} />
             ))}
-        </div>
+        </motion.div>
     );
 };
 
@@ -78,7 +80,7 @@ const DockIcon = ({ mouseX, app, onClick }) => {
                 width: '4px',
                 height: '4px',
                 borderRadius: '50%',
-                background: isOpen ? '#fff' : 'transparent',
+                background: isOpen ? 'var(--text-color)' : 'transparent',
                 opacity: 0.8
             }} />
         </div>

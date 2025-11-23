@@ -1,10 +1,13 @@
 import { useState, useEffect, useRef } from 'react';
 import { Wifi, Battery, Search, Command } from 'lucide-react';
+import { AnimatePresence } from 'framer-motion';
 import ControlCenter from './ControlCenter';
+import WidgetArea from './WidgetArea';
 
 const TopBar = () => {
     const [time, setTime] = useState(new Date());
     const [isControlCenterOpen, setIsControlCenterOpen] = useState(false);
+    const [isWidgetAreaOpen, setIsWidgetAreaOpen] = useState(false);
     const [activeMenu, setActiveMenu] = useState(null);
 
     useEffect(() => {
@@ -20,6 +23,25 @@ const TopBar = () => {
         return date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
     };
 
+    const handleMenuAction = (action) => {
+        switch (action) {
+            case 'Sleep':
+                alert('Sleep mode activated');
+                break;
+            case 'Restart...':
+                window.location.reload();
+                break;
+            case 'Shut Down...':
+                window.close();
+                break;
+            case 'About This Mac':
+                alert('Portfolio OS v1.0\nBuilt with React + Vite');
+                break;
+            default:
+                console.log('Menu action:', action);
+        }
+    };
+
     const menuItems = {
         '': ['About This Mac', 'System Settings...', 'Sleep', 'Restart...', 'Shut Down...'],
         'Portfolio': ['About Portfolio', 'Preferences...'],
@@ -33,7 +55,7 @@ const TopBar = () => {
 
     return (
         <>
-            <div className="glass-dark" style={{
+            <div className="glass" style={{
                 height: '30px',
                 width: '100%',
                 display: 'flex',
@@ -45,17 +67,36 @@ const TopBar = () => {
                 position: 'fixed',
                 top: 0,
                 zIndex: 9999,
-                color: '#fff'
+                borderRadius: 0,
+                border: 'none',
+                borderBottom: '1px solid var(--glass-border)'
             }}>
                 <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'center', height: '100%' }}>
-                    {Object.keys(menuItems).map((item) => (
+                    {Object.keys(menuItems).map((item, index) => (
                         <div
                             key={item}
                             style={{ position: 'relative', cursor: 'default', height: '100%', display: 'flex', alignItems: 'center' }}
                             onMouseEnter={() => activeMenu && setActiveMenu(item)}
                             onClick={() => setActiveMenu(activeMenu === item ? null : item)}
                         >
-                            <span style={{ fontWeight: item === '' || item === 'Portfolio' ? 'bold' : 'normal', padding: '0 0.5rem' }}>{item}</span>
+                            {index === 0 ? (
+                                // Custom Logo for first item
+                                <div style={{
+                                    width: '20px',
+                                    height: '20px',
+                                    borderRadius: '50%',
+                                    overflow: 'hidden',
+                                    marginLeft: '0.5rem'
+                                }}>
+                                    <img
+                                        src="/assets/logo.png"
+                                        alt="Logo"
+                                        style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                                    />
+                                </div>
+                            ) : (
+                                <span style={{ fontWeight: item === 'Portfolio' ? 'bold' : 'normal', padding: '0 0.5rem' }}>{item}</span>
+                            )}
                             {activeMenu === item && (
                                 <div style={{
                                     position: 'absolute',
@@ -71,7 +112,16 @@ const TopBar = () => {
                                     zIndex: 10000
                                 }}>
                                     {menuItems[item].map((subItem) => (
-                                        <div key={subItem} style={{ padding: '0.2rem 1rem', cursor: 'default', color: '#fff' }} className="menu-item">
+                                        <div
+                                            key={subItem}
+                                            style={{ padding: '0.2rem 1rem', cursor: 'default', color: '#fff' }}
+                                            className="menu-item"
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                handleMenuAction(subItem);
+                                                setActiveMenu(null);
+                                            }}
+                                        >
                                             {subItem}
                                         </div>
                                     ))}
@@ -85,14 +135,29 @@ const TopBar = () => {
                     <Battery size={18} />
                     <Wifi size={18} />
                     <Search size={18} />
+
+                    {/* Control Center Toggle */}
                     <div
-                        style={{ cursor: 'pointer', display: 'flex', gap: '0.5rem', alignItems: 'center' }}
-                        onClick={() => setIsControlCenterOpen(!isControlCenterOpen)}
+                        style={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}
+                        onClick={() => {
+                            setIsControlCenterOpen(!isControlCenterOpen);
+                            setIsWidgetAreaOpen(false);
+                        }}
                     >
                         <div style={{ width: '18px', height: '18px', border: '1px solid #fff', borderRadius: '4px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                             <div style={{ width: '12px', height: '1px', background: '#fff', transform: 'translateY(-2px)' }}></div>
                             <div style={{ width: '12px', height: '1px', background: '#fff', position: 'absolute', transform: 'translateY(2px)' }}></div>
                         </div>
+                    </div>
+
+                    {/* Widget Area Toggle (Date/Time) */}
+                    <div
+                        style={{ cursor: 'pointer', display: 'flex', gap: '0.5rem', alignItems: 'center' }}
+                        onClick={() => {
+                            setIsWidgetAreaOpen(!isWidgetAreaOpen);
+                            setIsControlCenterOpen(false);
+                        }}
+                    >
                         <span>{formatDate(time)}</span>
                         <span>{formatTime(time)}</span>
                     </div>
@@ -100,14 +165,21 @@ const TopBar = () => {
             </div>
 
             {/* Overlay to close menus */}
-            {activeMenu && (
+            {(activeMenu || isControlCenterOpen || isWidgetAreaOpen) && (
                 <div
                     style={{ position: 'fixed', top: '30px', left: 0, width: '100vw', height: '100vh', zIndex: 9998 }}
-                    onClick={() => setActiveMenu(null)}
+                    onClick={() => {
+                        setActiveMenu(null);
+                        setIsControlCenterOpen(false);
+                        setIsWidgetAreaOpen(false);
+                    }}
                 />
             )}
 
             <ControlCenter isOpen={isControlCenterOpen} onClose={() => setIsControlCenterOpen(false)} />
+            <AnimatePresence>
+                {isWidgetAreaOpen && <WidgetArea onClose={() => setIsWidgetAreaOpen(false)} />}
+            </AnimatePresence>
         </>
     );
 };

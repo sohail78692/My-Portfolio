@@ -2,29 +2,30 @@ import { motion } from 'framer-motion';
 import { X, Minus, Maximize2 } from 'lucide-react';
 import { useOS } from '../../context/OSContext';
 
-const Window = ({ window }) => {
+const Window = ({ window: appWindow }) => {
     const { closeApp, focusApp, minimizeApp, maximizeApp, zIndexMap, activeWindowId, updateWindowPosition } = useOS();
-    const isActive = activeWindowId === window.id;
+    const isActive = activeWindowId === appWindow.id;
 
-    if (window.isMinimized) return null;
+    if (appWindow.isMinimized) return null;
 
     return (
         <motion.div
-            drag={!window.isMaximized}
+            drag={!appWindow.isMaximized}
             dragMomentum={false}
+            dragConstraints={{ left: 0, top: 0, right: globalThis.innerWidth - 100, bottom: globalThis.innerHeight - 100 }}
             onDragEnd={(e, info) => {
-                if (!window.isMaximized) {
-                    updateWindowPosition(window.id, window.x + info.offset.x, window.y + info.offset.y);
+                if (!appWindow.isMaximized) {
+                    updateWindowPosition(appWindow.id, appWindow.x + info.offset.x, appWindow.y + info.offset.y);
                 }
             }}
             initial={{ scale: 0, opacity: 0, y: 100 }}
             animate={{
-                scale: window.isMaximized ? 1 : 1,
+                scale: appWindow.isMaximized ? 1 : 1,
                 opacity: 1,
-                width: window.isMaximized ? '100vw' : '600px',
-                height: window.isMaximized ? 'calc(100vh - 30px)' : '400px',
-                x: window.isMaximized ? 0 : (window.x || 0),
-                y: window.isMaximized ? 30 : (window.y || 0),
+                width: appWindow.isMaximized ? '100vw' : 'min(600px, 90vw)',
+                height: appWindow.isMaximized ? 'calc(100vh - 30px)' : 'min(400px, 80vh)',
+                x: appWindow.isMaximized ? 0 : (appWindow.x || 0),
+                y: appWindow.isMaximized ? 30 : (appWindow.y || 0),
             }}
             exit={{ scale: 0.9, opacity: 0, transition: { duration: 0.2 } }}
             transition={{ type: 'spring', stiffness: 300, damping: 30 }}
@@ -32,13 +33,13 @@ const Window = ({ window }) => {
                 position: 'absolute',
                 top: 0,
                 left: 0,
-                zIndex: zIndexMap[window.id] || 1,
-                borderRadius: window.isMaximized ? 0 : '10px',
+                zIndex: zIndexMap[appWindow.id] || 1,
+                borderRadius: appWindow.isMaximized ? 0 : '10px',
                 overflow: 'hidden',
                 boxShadow: isActive ? '0 20px 50px rgba(0,0,0,0.5)' : '0 5px 15px rgba(0,0,0,0.2)',
             }}
-            onMouseDown={() => focusApp(window.id)}
-            className="glass-dark"
+            onMouseDown={() => focusApp(appWindow.id)}
+            className="glass"
         >
             {/* Window Header */}
             <div
@@ -56,30 +57,30 @@ const Window = ({ window }) => {
             >
                 <div style={{ display: 'flex', gap: '0.5rem' }} className="traffic-lights">
                     <div
-                        onClick={(e) => { e.stopPropagation(); closeApp(window.id); }}
+                        onClick={(e) => { e.stopPropagation(); closeApp(appWindow.id); }}
                         style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#ff5f56', cursor: 'pointer', display: 'flex', justifyContent: 'center', alignItems: 'center' }}
                     >
                         <X size={8} color="#000" style={{ opacity: 0, transition: 'opacity 0.2s' }} className="icon" />
                     </div>
                     <div
-                        onClick={(e) => { e.stopPropagation(); minimizeApp(window.id); }}
+                        onClick={(e) => { e.stopPropagation(); minimizeApp(appWindow.id); }}
                         style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#ffbd2e', cursor: 'pointer', display: 'flex', justifyContent: 'center', alignItems: 'center' }}
                     >
                         <Minus size={8} color="#000" style={{ opacity: 0, transition: 'opacity 0.2s' }} className="icon" />
                     </div>
                     <div
-                        onClick={(e) => { e.stopPropagation(); maximizeApp(window.id); }}
+                        onClick={(e) => { e.stopPropagation(); maximizeApp(appWindow.id); }}
                         style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#27c93f', cursor: 'pointer', display: 'flex', justifyContent: 'center', alignItems: 'center' }}
                     >
                         <Maximize2 size={8} color="#000" style={{ opacity: 0, transition: 'opacity 0.2s' }} className="icon" />
                     </div>
                 </div>
-                <span style={{ marginLeft: '1rem', fontSize: '0.8rem', opacity: 0.7 }}>{window.title}</span>
+                <span style={{ marginLeft: '1rem', fontSize: '0.8rem', opacity: 0.7 }}>{appWindow.title}</span>
             </div>
 
             {/* Window Content */}
             <div style={{ height: 'calc(100% - 30px)', overflow: 'auto', background: '#1e1e1e' }}>
-                {window.component && <window.component />}
+                {appWindow.component && <appWindow.component />}
             </div>
         </motion.div>
     );
