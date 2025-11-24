@@ -9,7 +9,7 @@ import CalendarWidget from '../CalendarWidget';
 import WorldClockWidget from '../WorldClockWidget';
 
 const Desktop = () => {
-    const { windows } = useOS();
+    const { windows, isSleeping, isShutDown, wake } = useOS();
     const [isDark, setIsDark] = useState(true);
 
     useEffect(() => {
@@ -22,8 +22,44 @@ const Desktop = () => {
         return () => observer.disconnect();
     }, []);
 
+    // Handle waking up from sleep
+    useEffect(() => {
+        if (!isSleeping) return;
+
+        const handleWake = () => {
+            wake();
+        };
+
+        window.addEventListener('mousemove', handleWake);
+        window.addEventListener('keydown', handleWake);
+        window.addEventListener('click', handleWake);
+
+        return () => {
+            window.removeEventListener('mousemove', handleWake);
+            window.removeEventListener('keydown', handleWake);
+            window.removeEventListener('click', handleWake);
+        };
+    }, [isSleeping, wake]);
+
     const darkWallpaper = '/wallpapers/dark-abstract.jpg';
     const lightWallpaper = 'https://images.unsplash.com/photo-1557683316-973673baf926?q=80&w=2070&auto=format&fit=crop';
+
+    if (isShutDown) {
+        return (
+            <div style={{
+                width: '100vw',
+                height: '100vh',
+                background: '#000',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: '#333',
+                zIndex: 99999
+            }}>
+                {/* Completely black screen for shutdown */}
+            </div>
+        );
+    }
 
     return (
         <div style={{
@@ -34,6 +70,20 @@ const Desktop = () => {
             overflow: 'hidden',
             transition: 'background 0.5s ease'
         }}>
+            {/* Sleep Overlay */}
+            {isSleeping && (
+                <div style={{
+                    position: 'fixed',
+                    top: 0,
+                    left: 0,
+                    width: '100vw',
+                    height: '100vh',
+                    background: '#000',
+                    zIndex: 100000,
+                    cursor: 'none'
+                }} />
+            )}
+
             <TopBar />
 
             {/* Desktop Area */}

@@ -1,14 +1,13 @@
-import { useState, useEffect, useRef } from 'react';
-import { Wifi, Battery, Search, Command } from 'lucide-react';
-import { AnimatePresence } from 'framer-motion';
+import { useState, useEffect } from 'react';
+import { Wifi, Battery, Search } from 'lucide-react';
 import ControlCenter from './ControlCenter';
-import WidgetArea from './WidgetArea';
+import { useOS } from '../../context/OSContext';
 
 const TopBar = () => {
     const [time, setTime] = useState(new Date());
     const [isControlCenterOpen, setIsControlCenterOpen] = useState(false);
-    const [isWidgetAreaOpen, setIsWidgetAreaOpen] = useState(false);
     const [activeMenu, setActiveMenu] = useState(null);
+    const { openApp, sleep, shutDown } = useOS();
 
     useEffect(() => {
         const timer = setInterval(() => setTime(new Date()), 1000);
@@ -26,16 +25,19 @@ const TopBar = () => {
     const handleMenuAction = (action) => {
         switch (action) {
             case 'Sleep':
-                alert('Sleep mode activated');
+                sleep();
                 break;
             case 'Restart...':
                 window.location.reload();
                 break;
             case 'Shut Down...':
-                window.close();
+                shutDown();
                 break;
             case 'About This Mac':
-                alert('Portfolio OS v1.0\nBuilt with React + Vite');
+                openApp('about', 'About This Mac');
+                break;
+            case 'System Settings...':
+                openApp('settings', 'System Settings');
                 break;
             default:
                 console.log('Menu action:', action);
@@ -141,7 +143,6 @@ const TopBar = () => {
                         style={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}
                         onClick={() => {
                             setIsControlCenterOpen(!isControlCenterOpen);
-                            setIsWidgetAreaOpen(false);
                         }}
                     >
                         <div style={{ width: '18px', height: '18px', border: '1px solid #fff', borderRadius: '4px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
@@ -150,13 +151,9 @@ const TopBar = () => {
                         </div>
                     </div>
 
-                    {/* Widget Area Toggle (Date/Time) */}
+                    {/* Date/Time Display (No Click Action) */}
                     <div
-                        style={{ cursor: 'pointer', display: 'flex', gap: '0.5rem', alignItems: 'center' }}
-                        onClick={() => {
-                            setIsWidgetAreaOpen(!isWidgetAreaOpen);
-                            setIsControlCenterOpen(false);
-                        }}
+                        style={{ cursor: 'default', display: 'flex', gap: '0.5rem', alignItems: 'center' }}
                     >
                         <span>{formatDate(time)}</span>
                         <span>{formatTime(time)}</span>
@@ -165,21 +162,17 @@ const TopBar = () => {
             </div>
 
             {/* Overlay to close menus */}
-            {(activeMenu || isControlCenterOpen || isWidgetAreaOpen) && (
+            {(activeMenu || isControlCenterOpen) && (
                 <div
                     style={{ position: 'fixed', top: '30px', left: 0, width: '100vw', height: '100vh', zIndex: 9998 }}
                     onClick={() => {
                         setActiveMenu(null);
                         setIsControlCenterOpen(false);
-                        setIsWidgetAreaOpen(false);
                     }}
                 />
             )}
 
             <ControlCenter isOpen={isControlCenterOpen} onClose={() => setIsControlCenterOpen(false)} />
-            <AnimatePresence>
-                {isWidgetAreaOpen && <WidgetArea onClose={() => setIsWidgetAreaOpen(false)} />}
-            </AnimatePresence>
         </>
     );
 };

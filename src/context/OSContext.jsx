@@ -4,6 +4,8 @@ import Terminal from '../apps/Terminal';
 import Safari from '../apps/Safari';
 import Mail from '../apps/Mail';
 import Photos from '../apps/Photos';
+import About from '../apps/About';
+import Settings from '../apps/Settings';
 
 const APP_COMPONENTS = {
     finder: Finder,
@@ -11,6 +13,8 @@ const APP_COMPONENTS = {
     safari: Safari,
     mail: Mail,
     photos: Photos,
+    about: About,
+    settings: Settings,
 };
 
 const OSContext = createContext();
@@ -19,6 +23,8 @@ export const OSProvider = ({ children }) => {
     const [windows, setWindows] = useState([]);
     const [activeWindowId, setActiveWindowId] = useState(null);
     const [zIndexMap, setZIndexMap] = useState({});
+    const [isSleeping, setIsSleeping] = useState(false);
+    const [isShutDown, setIsShutDown] = useState(false);
 
     const focusApp = (appId) => {
         setActiveWindowId(appId);
@@ -51,6 +57,8 @@ export const OSProvider = ({ children }) => {
             isMaximized: false,
             x: 100 + offset,
             y: 100 + offset,
+            width: appId === 'about' ? 400 : (appId === 'settings' ? 800 : 800),
+            height: appId === 'about' ? 300 : (appId === 'settings' ? 600 : 600),
         };
 
         setWindows([...windows, newWindow]);
@@ -88,18 +96,27 @@ export const OSProvider = ({ children }) => {
         );
     };
 
+    const sleep = () => setIsSleeping(true);
+    const wake = () => setIsSleeping(false);
+    const shutDown = () => setIsShutDown(true);
+
     return (
         <OSContext.Provider
             value={{
                 windows,
                 activeWindowId,
                 zIndexMap,
+                isSleeping,
+                isShutDown,
                 openApp,
                 closeApp,
                 focusApp,
                 minimizeApp,
                 maximizeApp,
                 updateWindowPosition,
+                sleep,
+                wake,
+                shutDown,
             }}
         >
             {children}
