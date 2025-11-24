@@ -29,9 +29,9 @@ const About = () => {
             <p style={{ margin: '0 0 1.5rem', color: '#666', fontSize: '0.9rem' }}>Version 1.0 (Sonoma)</p>
 
             <div style={{ fontSize: '0.85rem', color: '#444', display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
-                <p><strong>Processor</strong> 3.2 GHz M2 Pro</p>
+                <p><strong>Processor</strong> 3.2 GHz P2 Pro</p>
                 <p><strong>Memory</strong> 16 GB</p>
-                <p><strong>Graphics</strong> Apple M2 Pro</p>
+                <p><strong>Graphics</strong> Poku P2 Pro</p>
             </div>
 
             <div style={{ marginTop: '2rem', fontSize: '0.8rem', color: '#888' }}>
