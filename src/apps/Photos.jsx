@@ -57,6 +57,10 @@ const Photos = () => {
         return () => window.removeEventListener('keydown', handleKeyDown);
     }, []);
 
+    const getThumbnailUrl = (url) => {
+        return url.replace(/w=\d+/, 'w=500');
+    };
+
     return (
         <div ref={containerRef} style={{ height: '100%', background: '#fff', display: 'flex', flexDirection: 'column', position: 'relative' }}>
             <div style={{ padding: padding, borderBottom: '1px solid #eee', transition: 'padding 0.3s' }}>
@@ -75,17 +79,11 @@ const Photos = () => {
                 {photos.map((src, i) => (
                     <div key={i} style={{ aspectRatio: '1', overflow: 'hidden', borderRadius: '4px', background: '#eee' }}>
                         <img
-                            src={src}
+                            src={getThumbnailUrl(src)}
                             alt={`Photo ${i}`}
-                            style={{
-                                width: '100%',
-                                height: '100%',
-                                objectFit: 'cover',
-                                transition: 'transform 0.3s ease',
-                                cursor: 'pointer'
-                            }}
-                            onMouseOver={(e) => e.target.style.transform = 'scale(1.1)'}
-                            onMouseOut={(e) => e.target.style.transform = 'scale(1)'}
+                            className="photo-grid-item"
+                            loading="lazy"
+                            decoding="async"
                             onClick={() => setSelectedPhoto(src)}
                         />
                     </div>
@@ -143,6 +141,16 @@ const Photos = () => {
                 </div>
             )}
             <style>{`
+                .photo-grid-item {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    transition: transform 0.3s ease;
+                    cursor: pointer;
+                }
+                .photo-grid-item:hover {
+                    transform: scale(1.1);
+                }
                 @keyframes fadeIn {
                     from { opacity: 0; }
                     to { opacity: 1; }
