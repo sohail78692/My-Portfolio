@@ -3,24 +3,13 @@ import Dock from './Dock';
 import Window from './Window';
 import { useOS } from '../../context/OSContext';
 import { AnimatePresence } from 'framer-motion';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import DiscordStatus from '../DiscordStatus';
 import CalendarWidget from '../CalendarWidget';
 import WorldClockWidget from '../WorldClockWidget';
 
 const Desktop = () => {
     const { windows, isSleeping, isShutDown, wake } = useOS();
-    const [isDark, setIsDark] = useState(true);
-
-    useEffect(() => {
-        const checkTheme = () => {
-            setIsDark(!document.documentElement.classList.contains('light'));
-        };
-        checkTheme();
-        const observer = new MutationObserver(checkTheme);
-        observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
-        return () => observer.disconnect();
-    }, []);
 
     // Handle waking up from sleep
     useEffect(() => {
@@ -41,8 +30,7 @@ const Desktop = () => {
         };
     }, [isSleeping, wake]);
 
-    const darkWallpaper = '/wallpapers/dark-abstract.jpg';
-    const lightWallpaper = 'https://images.unsplash.com/photo-1557683316-973673baf926?q=80&w=2070&auto=format&fit=crop';
+    const darkWallpaper = 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2560&auto=format&fit=crop';
 
     if (isShutDown) {
         return (
@@ -65,7 +53,7 @@ const Desktop = () => {
         <div style={{
             width: '100%',
             height: '100%',
-            background: `url("${isDark ? darkWallpaper : lightWallpaper}") center/cover no-repeat`,
+            background: `url("${darkWallpaper}") center/cover no-repeat`,
             position: 'relative',
             overflow: 'hidden',
             transition: 'background 0.5s ease'
