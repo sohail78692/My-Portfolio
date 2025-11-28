@@ -60,7 +60,7 @@ const Photos = () => {
     return (
         <div ref={containerRef} style={{ height: '100%', background: '#fff', display: 'flex', flexDirection: 'column', position: 'relative' }}>
             <div style={{ padding: padding, borderBottom: '1px solid #eee', transition: 'padding 0.3s' }}>
-                <h2 style={{ margin: 0, fontSize: columnWidth < 100 ? '1.2rem' : '1.5rem', color: '#000' }}>Library</h2>
+                <h2 style={{ margin: 0, fontSize: columnWidth < 100 ? '1.2rem' : '1.5rem', color: '#000' }}>Photos</h2>
             </div>
             <div style={{
                 flex: 1,

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import { Wifi, Battery, Search } from 'lucide-react';
+import { Wifi, Search } from 'lucide-react';
+import BatteryStatus from './BatteryStatus';
 import ControlCenter from './ControlCenter';
 import { useOS } from '../../context/OSContext';
 
@@ -134,7 +135,7 @@ const TopBar = () => {
                 </div>
 
                 <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-                    <Battery size={18} />
+                    <BatteryStatus size={18} />
                     <Wifi size={18} />
                     <Search size={18} />
 
