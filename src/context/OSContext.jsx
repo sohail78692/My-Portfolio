@@ -6,6 +6,7 @@ import Mail from '../apps/Mail';
 import Photos from '../apps/Photos';
 import About from '../apps/About';
 import Settings from '../apps/Settings';
+import Help from '../apps/Help';
 
 const APP_COMPONENTS = {
     finder: Finder,
@@ -15,6 +16,7 @@ const APP_COMPONENTS = {
     photos: Photos,
     about: About,
     settings: Settings,
+    help: Help,
 };
 
 const OSContext = createContext();

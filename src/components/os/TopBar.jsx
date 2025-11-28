@@ -40,6 +40,9 @@ const TopBar = () => {
             case 'System Settings...':
                 openApp('settings', 'System Settings');
                 break;
+            case 'Portfolio Help':
+                openApp('help', 'Portfolio Help');
+                break;
             default:
                 console.log('Menu action:', action);
         }
