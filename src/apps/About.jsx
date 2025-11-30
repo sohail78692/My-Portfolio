@@ -26,7 +26,7 @@ const About = () => {
                 />
             </div>
             <h2 style={{ margin: '0 0 0.5rem', fontSize: '1.5rem', fontWeight: '600' }}>Portfolio OS</h2>
-            <p style={{ margin: '0 0 1.5rem', color: '#666', fontSize: '0.9rem' }}>Version 1.0 (Sonoma)</p>
+            <p style={{ margin: '0 0 1.5rem', color: '#666', fontSize: '0.9rem' }}>Version 1.0 (Poku)</p>
 
             <div style={{ fontSize: '0.85rem', color: '#444', display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
                 <p><strong>Processor</strong> 3.2 GHz P2 Pro</p>
