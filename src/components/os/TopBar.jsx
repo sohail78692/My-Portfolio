@@ -81,9 +81,15 @@ const TopBar = () => {
                     {Object.keys(menuItems).map((item, index) => (
                         <div
                             key={item}
-                            style={{ position: 'relative', cursor: 'default', height: '100%', display: 'flex', alignItems: 'center' }}
-                            onMouseEnter={() => activeMenu && setActiveMenu(item)}
-                            onClick={() => setActiveMenu(activeMenu === item ? null : item)}
+                            style={{
+                                position: 'relative',
+                                cursor: (index === 0 || item === 'Help') ? 'default' : 'default',
+                                height: '100%',
+                                display: 'flex',
+                                alignItems: 'center'
+                            }}
+                            onMouseEnter={() => activeMenu && (index === 0 || item === 'Help') && setActiveMenu(item)}
+                            onClick={() => (index === 0 || item === 'Help') && setActiveMenu(activeMenu === item ? null : item)}
                         >
                             {index === 0 ? (
                                 // Custom Logo for first item
@@ -103,7 +109,7 @@ const TopBar = () => {
                             ) : (
                                 <span style={{ fontWeight: item === 'Portfolio' ? 'bold' : 'normal', padding: '0 0.5rem' }}>{item}</span>
                             )}
-                            {activeMenu === item && (
+                            {activeMenu === item && (index === 0 || item === 'Help') && (
                                 <div style={{
                                     position: 'absolute',
                                     top: '30px',
