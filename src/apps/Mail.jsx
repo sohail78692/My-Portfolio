@@ -354,6 +354,178 @@ const Mail = () => {
                                         status === 'error' ? 'Failed to Send' : 'Send Message'}
                             </button>
                         </form>
+
+                        {/* Contact Links Section */}
+                        <div style={{
+                            marginTop: '3rem',
+                            paddingTop: '2rem',
+                            borderTop: `1px solid ${isDark ? '#3a3a3a' : '#ddd'}`
+                        }}>
+                            <h3 style={{
+                                fontSize: isSmall ? '1.2rem' : '1.5rem',
+                                marginBottom: '1rem',
+                                color: isDark ? '#fff' : '#000',
+                                textAlign: 'center'
+                            }}>
+                                Connect With Me
+                            </h3>
+                            <p style={{
+                                marginBottom: '1.5rem',
+                                color: isDark ? '#aaa' : '#666',
+                                textAlign: 'center',
+                                fontSize: isSmall ? '0.85rem' : '0.95rem'
+                            }}>
+                                Let's stay connected! Find me on these platforms
+                            </p>
+
+                            <div style={{
+                                display: 'grid',
+                                gridTemplateColumns: isSmall ? '1fr' : 'repeat(2, 1fr)',
+                                gap: '1rem'
+                            }}>
+                                {/* Gmail */}
+                                <a
+                                    href="mailto:sohail786akh@gmail.com"
+                                    style={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        gap: '1rem',
+                                        padding: '1rem',
+                                        background: isDark ? 'rgba(234, 67, 53, 0.1)' : 'rgba(234, 67, 53, 0.05)',
+                                        border: `1px solid ${isDark ? 'rgba(234, 67, 53, 0.3)' : 'rgba(234, 67, 53, 0.2)'}`,
+                                        borderRadius: '12px',
+                                        textDecoration: 'none',
+                                        color: isDark ? '#fff' : '#000',
+                                        transition: 'all 0.3s ease',
+                                        cursor: 'pointer'
+                                    }}
+                                    onMouseEnter={(e) => {
+                                        e.currentTarget.style.transform = 'translateY(-2px)';
+                                        e.currentTarget.style.boxShadow = '0 4px 12px rgba(234, 67, 53, 0.2)';
+                                        e.currentTarget.style.background = isDark ? 'rgba(234, 67, 53, 0.15)' : 'rgba(234, 67, 53, 0.1)';
+                                    }}
+                                    onMouseLeave={(e) => {
+                                        e.currentTarget.style.transform = 'translateY(0)';
+                                        e.currentTarget.style.boxShadow = 'none';
+                                        e.currentTarget.style.background = isDark ? 'rgba(234, 67, 53, 0.1)' : 'rgba(234, 67, 53, 0.05)';
+                                    }}
+                                >
+                                    <span style={{ fontSize: '2rem' }}>📧</span>
+                                    <div style={{ flex: 1 }}>
+                                        <div style={{ fontWeight: '600', marginBottom: '0.2rem' }}>Email</div>
+                                        <div style={{ fontSize: '0.85rem', color: isDark ? '#aaa' : '#666' }}>sohail786akh@gmail.com</div>
+                                    </div>
+                                </a>
+
+                                {/* GitHub */}
+                                <a
+                                    href="https://github.com/sohail78692"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    style={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        gap: '1rem',
+                                        padding: '1rem',
+                                        background: isDark ? 'rgba(88, 166, 255, 0.1)' : 'rgba(88, 166, 255, 0.05)',
+                                        border: `1px solid ${isDark ? 'rgba(88, 166, 255, 0.3)' : 'rgba(88, 166, 255, 0.2)'}`,
+                                        borderRadius: '12px',
+                                        textDecoration: 'none',
+                                        color: isDark ? '#fff' : '#000',
+                                        transition: 'all 0.3s ease',
+                                        cursor: 'pointer'
+                                    }}
+                                    onMouseEnter={(e) => {
+                                        e.currentTarget.style.transform = 'translateY(-2px)';
+                                        e.currentTarget.style.boxShadow = '0 4px 12px rgba(88, 166, 255, 0.2)';
+                                        e.currentTarget.style.background = isDark ? 'rgba(88, 166, 255, 0.15)' : 'rgba(88, 166, 255, 0.1)';
+                                    }}
+                                    onMouseLeave={(e) => {
+                                        e.currentTarget.style.transform = 'translateY(0)';
+                                        e.currentTarget.style.boxShadow = 'none';
+                                        e.currentTarget.style.background = isDark ? 'rgba(88, 166, 255, 0.1)' : 'rgba(88, 166, 255, 0.05)';
+                                    }}
+                                >
+                                    <span style={{ fontSize: '2rem' }}>💻</span>
+                                    <div style={{ flex: 1 }}>
+                                        <div style={{ fontWeight: '600', marginBottom: '0.2rem' }}>GitHub</div>
+                                        <div style={{ fontSize: '0.85rem', color: isDark ? '#aaa' : '#666' }}>@sohail78692</div>
+                                    </div>
+                                </a>
+
+                                {/* LinkedIn */}
+                                <a
+                                    href="https://www.linkedin.com/in/sohail-akhtar-49229032a/"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    style={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        gap: '1rem',
+                                        padding: '1rem',
+                                        background: isDark ? 'rgba(10, 102, 194, 0.1)' : 'rgba(10, 102, 194, 0.05)',
+                                        border: `1px solid ${isDark ? 'rgba(10, 102, 194, 0.3)' : 'rgba(10, 102, 194, 0.2)'}`,
+                                        borderRadius: '12px',
+                                        textDecoration: 'none',
+                                        color: isDark ? '#fff' : '#000',
+                                        transition: 'all 0.3s ease',
+                                        cursor: 'pointer'
+                                    }}
+                                    onMouseEnter={(e) => {
+                                        e.currentTarget.style.transform = 'translateY(-2px)';
+                                        e.currentTarget.style.boxShadow = '0 4px 12px rgba(10, 102, 194, 0.2)';
+                                        e.currentTarget.style.background = isDark ? 'rgba(10, 102, 194, 0.15)' : 'rgba(10, 102, 194, 0.1)';
+                                    }}
+                                    onMouseLeave={(e) => {
+                                        e.currentTarget.style.transform = 'translateY(0)';
+                                        e.currentTarget.style.boxShadow = 'none';
+                                        e.currentTarget.style.background = isDark ? 'rgba(10, 102, 194, 0.1)' : 'rgba(10, 102, 194, 0.05)';
+                                    }}
+                                >
+                                    <span style={{ fontSize: '2rem' }}>💼</span>
+                                    <div style={{ flex: 1 }}>
+                                        <div style={{ fontWeight: '600', marginBottom: '0.2rem' }}>LinkedIn</div>
+                                        <div style={{ fontSize: '0.85rem', color: isDark ? '#aaa' : '#666' }}>Sohail Akhtar</div>
+                                    </div>
+                                </a>
+
+                                {/* Twitter */}
+                                <a
+                                    href="https://twitter.com/sohail786akh"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    style={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        gap: '1rem',
+                                        padding: '1rem',
+                                        background: isDark ? 'rgba(29, 161, 242, 0.1)' : 'rgba(29, 161, 242, 0.05)',
+                                        border: `1px solid ${isDark ? 'rgba(29, 161, 242, 0.3)' : 'rgba(29, 161, 242, 0.2)'}`,
+                                        borderRadius: '12px',
+                                        textDecoration: 'none',
+                                        color: isDark ? '#fff' : '#000',
+                                        transition: 'all 0.3s ease',
+                                        cursor: 'pointer'
+                                    }}
+                                    onMouseEnter={(e) => {
+                                        e.currentTarget.style.transform = 'translateY(-2px)';
+                                        e.currentTarget.style.boxShadow = '0 4px 12px rgba(29, 161, 242, 0.2)';
+                                        e.currentTarget.style.background = isDark ? 'rgba(29, 161, 242, 0.15)' : 'rgba(29, 161, 242, 0.1)';
+                                    }}
+                                    onMouseLeave={(e) => {
+                                        e.currentTarget.style.transform = 'translateY(0)';
+                                        e.currentTarget.style.boxShadow = 'none';
+                                        e.currentTarget.style.background = isDark ? 'rgba(29, 161, 242, 0.1)' : 'rgba(29, 161, 242, 0.05)';
+                                    }}
+                                >
+                                    <span style={{ fontSize: '2rem' }}>🐦</span>
+                                    <div style={{ flex: 1 }}>
+                                        <div style={{ fontWeight: '600', marginBottom: '0.2rem' }}>Twitter</div>
+                                        <div style={{ fontSize: '0.85rem', color: isDark ? '#aaa' : '#666' }}>@sohail786akh</div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 ) : (
                     <div style={{
