@@ -8,7 +8,7 @@ const projects = [
         title: 'Expense Mate',
         description: 'A smart expense tracker to manage your finances efficiently.',
         tags: ['Next.js', 'React', 'TailwindCSS'],
-        image: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&auto=format&fit=crop',
+        image: 'https://github.com/sohail78692/ExpenseMate/blob/main/expensemate.png?raw=true',
         liveLink: 'https://expense-mate-beta.vercel.app',
         repoLink: 'https://github.com/sohail78692/ExpenseMate'
     },
@@ -17,7 +17,7 @@ const projects = [
         title: 'Playground Code',
         description: 'A modern online code editor with real-time preview functionality.',
         tags: ['React', 'Vite', 'Monaco Editor'],
-        image: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&auto=format&fit=crop',
+        image: 'https://github.com/sohail78692/CodePlayground---Modern-Code-Editor/blob/main/Webview.png?raw=true',
         liveLink: 'https://playgroundcode.netlify.app/',
         repoLink: 'https://github.com/sohail78692/CodePlayground---Modern-Code-Editor'
     },
@@ -26,7 +26,7 @@ const projects = [
         title: 'Mood Music',
         description: 'Discover music that matches your current mood.',
         tags: ['React', 'API', 'Framer Motion'],
-        image: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=800&auto=format&fit=crop',
+        image: 'https://github.com/sohail78692/Mood-Music/blob/main/mood-music.png?raw=true',
         liveLink: 'https://mood-music-sigma.vercel.app',
         repoLink: 'https://github.com/sohail78692/Mood-Music'
     },
