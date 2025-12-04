@@ -1,31 +1,34 @@
-import { Search, ArrowLeft, ArrowRight, RotateCw } from 'lucide-react';
+import { Search, ArrowLeft, ArrowRight, RotateCw, ExternalLink, Github } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 
 const projects = [
     {
         id: 1,
-        title: 'Neon City',
-        description: 'A cyberpunk-inspired 3D city explorer built with Three.js.',
-        tags: ['React', 'Three.js', 'WebGL'],
-        image: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=800&auto=format&fit=crop',
-        link: '#'
+        title: 'Expense Mate',
+        description: 'A smart expense tracker to manage your finances efficiently.',
+        tags: ['Next.js', 'React', 'TailwindCSS'],
+        image: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&auto=format&fit=crop',
+        liveLink: 'https://expense-mate-beta.vercel.app',
+        repoLink: 'https://github.com/sohail78692/ExpenseMate'
     },
     {
         id: 2,
-        title: 'E-Commerce Dashboard',
-        description: 'A modern, responsive dashboard for managing online stores.',
-        tags: ['Next.js', 'Tailwind', 'Chart.js'],
-        image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&auto=format&fit=crop',
-        link: '#'
+        title: 'Playground Code',
+        description: 'A modern online code editor with real-time preview functionality.',
+        tags: ['React', 'Vite', 'Monaco Editor'],
+        image: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&auto=format&fit=crop',
+        liveLink: 'https://playgroundcode.netlify.app/',
+        repoLink: 'https://github.com/sohail78692/CodePlayground---Modern-Code-Editor'
     },
     {
         id: 3,
-        title: 'AI Chat Interface',
-        description: 'An intuitive chat interface for interacting with LLMs.',
-        tags: ['React', 'OpenAI API', 'Framer Motion'],
-        image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&auto=format&fit=crop',
-        link: '#'
+        title: 'Mood Music',
+        description: 'Discover music that matches your current mood.',
+        tags: ['React', 'API', 'Framer Motion'],
+        image: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=800&auto=format&fit=crop',
+        liveLink: 'https://mood-music-sigma.vercel.app',
+        repoLink: 'https://github.com/sohail78692/Mood-Music'
     },
 ];
 
@@ -138,8 +141,8 @@ const Safari = () => {
                                     borderRadius: '16px',
                                     overflow: 'hidden',
                                     border: `1px solid ${isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)'}`,
-                                    cursor: 'pointer',
-                                    transition: 'all 0.3s ease'
+                                    display: 'flex',
+                                    flexDirection: 'column'
                                 }}
                             >
                                 <div style={{
@@ -156,7 +159,7 @@ const Safari = () => {
                                             : 'linear-gradient(to bottom, transparent 0%, rgba(255,255,255,0.9) 100%)'
                                     }} />
                                 </div>
-                                <div style={{ padding: '1.5rem' }}>
+                                <div style={{ padding: '1.5rem', flex: 1, display: 'flex', flexDirection: 'column' }}>
                                     <h3 style={{
                                         fontSize: '1.4rem',
                                         fontWeight: '600',
@@ -169,11 +172,12 @@ const Safari = () => {
                                         fontSize: '0.95rem',
                                         marginBottom: '1.2rem',
                                         color: isDark ? '#aaa' : '#666',
-                                        lineHeight: '1.6'
+                                        lineHeight: '1.6',
+                                        flex: 1
                                     }}>
                                         {project.description}
                                     </p>
-                                    <div style={{ display: 'flex', gap: '0.6rem', flexWrap: 'wrap' }}>
+                                    <div style={{ display: 'flex', gap: '0.6rem', flexWrap: 'wrap', marginBottom: '1.5rem' }}>
                                         {project.tags.map((tag) => (
                                             <span
                                                 key={tag}
@@ -191,6 +195,62 @@ const Safari = () => {
                                                 {tag}
                                             </span>
                                         ))}
+                                    </div>
+
+                                    <div style={{ display: 'flex', gap: '1rem', marginTop: 'auto' }}>
+                                        <a
+                                            href={project.liveLink}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            style={{
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                gap: '0.5rem',
+                                                padding: '0.5rem 1rem',
+                                                borderRadius: '8px',
+                                                background: isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)',
+                                                color: isDark ? '#fff' : '#000',
+                                                textDecoration: 'none',
+                                                fontSize: '0.9rem',
+                                                fontWeight: '500',
+                                                transition: 'background 0.2s'
+                                            }}
+                                            onMouseEnter={(e) => e.currentTarget.style.background = isDark ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.1)'}
+                                            onMouseLeave={(e) => e.currentTarget.style.background = isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)'}
+                                        >
+                                            <ExternalLink size={16} />
+                                            Live Demo
+                                        </a>
+                                        <a
+                                            href={project.repoLink}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            style={{
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                gap: '0.5rem',
+                                                padding: '0.5rem 1rem',
+                                                borderRadius: '8px',
+                                                background: 'transparent',
+                                                color: isDark ? '#aaa' : '#666',
+                                                textDecoration: 'none',
+                                                fontSize: '0.9rem',
+                                                fontWeight: '500',
+                                                border: `1px solid ${isDark ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.1)'}`,
+                                                transition: 'all 0.2s'
+                                            }}
+                                            onMouseEnter={(e) => {
+                                                e.currentTarget.style.borderColor = isDark ? '#fff' : '#000';
+                                                e.currentTarget.style.color = isDark ? '#fff' : '#000';
+                                            }}
+                                            onMouseLeave={(e) => {
+                                                e.currentTarget.style.borderColor = isDark ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.1)';
+                                                e.currentTarget.style.color = isDark ? '#aaa' : '#666';
+                                            }}
+                                        >
+                                            <Github size={16} />
+                                            Code
+                                        </a>
                                     </div>
                                 </div>
                             </motion.div>
